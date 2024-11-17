@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <!-- Updated Compiler Configuration for FoodHubApp_Backend -->
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <!-- Updated module names to reflect the new project structure -->
+        <module name="FoodHubApp-api" />
+        <module name="FoodHubApp-db" />
+        <module name="FoodHubApp-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <!-- Updated module names and ensured Java version compatibility -->
+      <module name="FoodHubApp-api" target="1.8" />
+      <module name="FoodHubApp-db" target="1.8" />
+      <module name="FoodHubApp-service" target="1.8" />
+      <module name="FoodHubAppBackend" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <!-- Adjusted options to match the new module names -->
+      <module name="FoodHubApp-api" options="-parameters" />
+      <module name="FoodHubApp-db" options="-parameters" />
+      <module name="FoodHubApp-service" options="-parameters" />
+    </option>
+  </component>
+</project>

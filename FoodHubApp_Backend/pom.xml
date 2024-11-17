@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- Maven Project Details -->
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>FoodHubApp_Backend</groupId>
+    <artifactId>FoodHubApp_Backend</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    
+    <packaging>pom</packaging>
+
+    <!-- Project Information -->
+    <name>FoodHubApp Backend</name>
+    <description>Backend API for FoodHubApp</description>
+    <url>https://github.com/SwarajDas/FoodHubApp_Backend</url>
+    <inceptionYear>2024</inceptionYear>
+
+    <!-- Author/Developer Details -->
+    <organization>
+        <name>Swaraj Das</name>
+        <url>https://github.com/SwarajDas</url>
+    </organization>
+    
+    <developers>
+        <developer>
+            <id>swarajdas</id>
+            <name>Swaraj Das</name>
+            <email>swarajdas540@gmail.com</email>
+            <url>https://github.com/SwarajDas</url>
+            <roles>
+                <role>Project Owner</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <!-- Parent Spring Boot Configuration -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.1.RELEASE</version>
+    </parent>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.0.8.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Jackson for JSON Parsing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Spring Context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.8.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- PostgreSQL Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.2</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Submodules -->
+    <modules>
+        <module>FoodHubApp-api</module>
+        <module>FoodHubApp-db</module>
+        <module>FoodHubApp-service</module>
+    </modules>
+
+</project>

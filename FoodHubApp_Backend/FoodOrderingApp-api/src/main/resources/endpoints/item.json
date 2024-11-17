@@ -1,0 +1,168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Item API",
+    "version": "1.0.0",
+    "description": "API for managing item services in the Food Ordering Application developed by Swaraj Das"
+  },
+  "host": "FoodHubApp.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/api",
+  "tags":  [
+    {
+      "name": "API#001 Item",
+      "description": "Operations related to managing items in the food ordering system"
+    }
+  ],
+  "paths": {
+    "/item/restaurant/{restaurantId}": {
+      "x-swagger-router-controller": "api",
+      "get": {
+        "tags": [
+          "API#001 Get top 5 items"
+        ],
+        "operationId": "getItemsByPopularity",
+        "summary": "Get top 5 items",
+        "description": "Fetch the top 5 items available in a restaurant based on popularity (number of times they are ordered).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/restaurantId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Items list fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/ItemListResponse"
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST - Server cannot or will not process the request due to client-side errors (e.g., malformed request syntax, missing mandatory elements)",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing and correlation"
+              }
+            }
+          },
+          "401": {
+            "description": "UNAUTHORIZED - Invalid credentials provided by the client",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing and correlation"
+              }
+            }
+          },
+          "403": {
+            "description": "FORBIDDEN - The client does not have permission to perform this action",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing and correlation"
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCESSABLE ENTITY - Well-formed request but the server cannot process due to semantic errors",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing and request flow"
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL SERVER ERROR - Unexpected condition prevented the server from fulfilling the request",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing and correlation"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "restaurantId": {
+      "name": "restaurantId",
+      "type": "string",
+      "in": "path",
+      "format": "uuid",
+      "required": true,
+      "description": "Unique identifier of the restaurant in standard UUID format"
+    }
+  },
+  "definitions": {
+    "ItemListResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/ItemList"
+      },
+      "description": "List of items available in the restaurant"
+    },
+    "ItemList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier of the item in standard UUID format"
+        },
+        "item_name": {
+          "type": "string",
+          "description": "Name of the item"
+        },
+        "price": {
+          "type": "integer",
+          "description": "Price of the item"
+        },
+        "item_type": {
+          "type": "string",
+          "enum": [
+            "VEG",
+            "NON_VEG"
+          ],
+          "description": "Type of the item, either VEG or NON_VEG"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Application-specific standard error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message explaining the reason"
+        },
+        "root_cause": {
+          "type": "string",
+          "description": "Root cause of the error"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "example": {
+        "code": "ITM-001",
+        "message": "Restaurant with the given restaurant ID does not exist"
+      }
+    }
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Category API",
+    "version": "1.0.0",
+    "description": "API for managing categories in the Food Ordering Application developed by Swaraj Das"
+  },
+  "host": "FoodHubApp.io",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/api",
+  "tags":  [
+    {
+      "name": "API#001 Category",
+      "description": "Operations related to categories in the food ordering system"
+    }
+  ],
+  "paths": {
+    "/category": {
+      "x-swagger-router-controller": "api",
+      "get": {
+        "tags": [
+          "API#001 Get all categories"
+        ],
+        "operationId": "getAll",
+        "summary": "Get all categories",
+        "description": "Fetch a list of all categories available for ordering.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Categories list fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/CategoriesListResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid syntax or missing elements.",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid credentials",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity - Semantic errors preventing processing",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend request flow tracing"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexpected server issue",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{categoryId}": {
+      "x-swagger-router-controller": "api",
+      "get": {
+        "tags": [
+          "API#001 Get category by ID"
+        ],
+        "operationId": "getCategoryById",
+        "summary": "Get category by ID",
+        "description": "Fetch category details by the unique category ID.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/categoryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category details fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/CategoryDetailsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid syntax or missing elements",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid credentials",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used as correlation id for backend tracing"
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity - Semantic errors preventing processing",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend request flow tracing"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexpected server issue",
+            "headers": {
+              "request-id": {
+                "type": "string",
+                "description": "Used for backend tracing"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "categoryId": {
+      "name": "categoryId",
+      "type": "string",
+      "in": "path",
+      "format": "uuid",
+      "required": true,
+      "description": "Unique identifier of the category in UUID format"
+    }
+  },
+  "definitions": {
+    "CategoriesListResponse": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CategoryListResponse"
+          },
+          "description": "List of available categories"
+        }
+      }
+    },
+    "CategoryListResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier of the category in UUID format"
+        },
+        "category_name": {
+          "type": "string",
+          "description": "Name of the category"
+        }
+      }
+    },
+    "CategoryDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier of the category in UUID format"
+        },
+        "category_name": {
+          "type": "string",
+          "description": "Name of the category"
+        },
+        "item_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ItemList"
+          },
+          "description": "List of items within the category"
+        }
+      }
+    },
+    "ItemList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier of the item in UUID format"
+        },
+        "item_name": {
+          "type": "string",
+          "description": "Name of the item"
+        },
+        "price": {
+          "type": "integer",
+          "description": "Price of the item"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "VEG",
+            "NON_VEG"
+          ]
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Application-specific standard error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message explaining the reason"
+        },
+        "root_cause": {
+          "type": "string",
+          "description": "Root cause of the error"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "example": {
+        "code": "CAT-001",
+        "message": "Category with the given name does not exist"
+      }
+    }
+  }
+}
